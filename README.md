@@ -20,11 +20,12 @@ How to run:
     docker-compose up --build
    
 2. Access services
+   
      API: http://localhost:3000
      RabbitMQ UI: http://localhost:15672 (default user/pass: guest/guest)
      Redis CLI: docker exec -it <redis_container> redis-cli
 
-3. Open frontend/index.html in your browser
+4. Open frontend/index.html in your browser
    Frontend Features:
     -Simple UI to call API endpoints
     -Visualize rate limit data from Redis
