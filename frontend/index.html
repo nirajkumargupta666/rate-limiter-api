@@ -41,12 +41,11 @@
 </head>
 <body>
   <div class="container">
-    <h1>Rate Limiter Dashboard</h1>
 
     <section>
-      <h2>Test API Endpoints</h2>
-      <button onclick="hitEndpoint('products')">GET /products</button>
-      <button onclick="hitEndpoint('checkout')">GET /checkout</button>
+      <h2>API Endpoints</h2>
+      <button onclick="hitEndpoint('products')">GET products</button> 
+      <button onclick="hitEndpoint('checkout')">GET checkout</button>
       <div class="response-box" id="apiResponse">Response will appear here</div>
     </section>
 
@@ -57,7 +56,7 @@
     </section>
 
     <section>
-      <h2>Excessive Requests (Real-Time)</h2>
+      <h2>Excessive Requests</h2>
       <button onclick="fetchExcessiveLogs()">Refresh Logs</button>
       <pre id="excessiveLogs">Loading...</pre>
     </section>
