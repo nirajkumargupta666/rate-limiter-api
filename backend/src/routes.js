@@ -1,13 +1,14 @@
 const express = require('express');
 const router = express.Router();
 const redis = require('./services/redisClient');
+const rateLimiter = require('./middleware/rateLimiter');
 
 
-router.get('/products', (req, res) => {
+router.get('/products', rateLimiter, (req, res) => {
   res.json({ message: 'Products list' });
 });
 
-router.get('/checkout', (req, res) => {
+router.get('/checkout', rateLimiter, (req, res) => {
   res.json({ message: 'Checkout endpoint' });
 });
 
