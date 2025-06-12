@@ -16,16 +16,15 @@ A scalable rate-limiting middleware for an e-commerce Express.js API using Redis
 - Plain JS/HTML UI to test endpoints and visualize logs
 
 How to run:
-1. Start everything with Docker Compose
+1. Start everything with Docker Compose:
     docker-compose up --build
    
-2. Access services
-   
+3. Access services:
      API: http://localhost:3000
      RabbitMQ UI: http://localhost:15672 (default user/pass: guest/guest)
      Redis CLI: docker exec -it <redis_container> redis-cli
 
-4. Open frontend/index.html in your browser
+4. Open frontend/index.html in your browser:
    Frontend Features:
     -Simple UI to call API endpoints
     -Visualize rate limit data from Redis
