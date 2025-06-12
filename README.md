@@ -17,7 +17,6 @@ A scalable rate-limiting middleware for an e-commerce Express.js API using Redis
 
 How to run:
 1. Start everything with Docker Compose:
-   
     docker-compose up --build
    
 3. Access services:
