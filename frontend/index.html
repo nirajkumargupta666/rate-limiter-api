@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rate Limiter Dashboard</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background-color: #f9f9f9;
+    }
+    .container {
+      max-width: 800px;
+      margin: auto;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    button {
+      margin: 5px;
+      padding: 10px 20px;
+      font-size: 16px;
+    }
+    pre {
+      background-color: #eee;
+      padding: 10px;
+      overflow-x: auto;
+    }
+    section {
+      margin-bottom: 30px;
+    }
+    .response-box {
+      border: 1px solid #ccc;
+      padding: 10px;
+      margin-top: 10px;
+      background-color: #fff;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Rate Limiter Dashboard</h1>
+
+    <section>
+      <h2>Test API Endpoints</h2>
+      <button onclick="hitEndpoint('products')">GET /products</button>
+      <button onclick="hitEndpoint('checkout')">GET /checkout</button>
+      <div class="response-box" id="apiResponse">Response will appear here</div>
+    </section>
+
+    <section>
+      <h2>Redis Rate Limit Counts</h2>
+      <button onclick="fetchRateLimitCounts()">Refresh Counts</button>
+      <pre id="rateLimits">Loading...</pre>
+    </section>
+
+    <section>
+      <h2>Excessive Requests (Real-Time)</h2>
+      <button onclick="fetchExcessiveLogs()">Refresh Logs</button>
+      <pre id="excessiveLogs">Loading...</pre>
+    </section>
+  </div>
+
+  <script>
+    async function hitEndpoint(endpoint) {
+      try {
+        const res = await fetch(`http://localhost:3000/api/${endpoint}`);
+        const data = await res.json();
+        document.getElementById('apiResponse').textContent = data.message || 'No message'
+      } catch (err) {
+        document.getElementById('apiResponse').textContent = 'Error: ' + err.message;
+      }
+    }
+
+    async function fetchRateLimitCounts() {
+      try {
+        const res = await fetch('http://localhost:3000/api/rate-limits');
+        const data = await res.json();
+        document.getElementById('rateLimits').textContent = JSON.stringify(data, null, 2);
+      } catch (err) {
+        document.getElementById('rateLimits').textContent = 'Error fetching Redis data';
+      }
+    }
+
+    async function fetchExcessiveLogs() {
+      try {
+        const res = await fetch('http://localhost:3000/api/excessive-logs');
+        const data = await res.json();
+        document.getElementById('excessiveLogs').textContent = JSON.stringify(data, null, 2);
+      } catch (err) {
+        document.getElementById('excessiveLogs').textContent = 'Error fetching logs';
+      }
+    }
+
+    // auto refresh every 5 seconds
+    // setInterval(() => {
+    //   fetchRateLimitCounts();
+    //   fetchExcessiveLogs();
+    // }, 5000);
+
+    // fetchRateLimitCounts();
+    // fetchExcessiveLogs();
+  </script>
+</body>
+</html>
